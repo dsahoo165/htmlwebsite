@@ -19,6 +19,7 @@ pipeline {
                 sh """
                 export IMAGE=httpd_dk
                 export TAG=${env.BUILD_NUMBER}
+                export PORT_TO_RUN=8082
                 docker compose up -d
                 docker ps
                 """
