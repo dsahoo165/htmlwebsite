@@ -2,16 +2,20 @@ pipeline {
     agent any
 
     stages {
-        stage('Build') {
+        stage('Build Image') {
             steps {
                 echo "Build number is : ${env.BUILD_NUMBER}"
                 sh "docker images"
-                sh "docker build -t httpd_dk:${env.BUILD_NUMBER} ."
+                script {
+                      // Build the Docker image
+                      docker.build("httpd_dk:${env.BUILD_NUMBER}")
+                }
+                //sh "docker build -t httpd_dk:${env.BUILD_NUMBER} ."
                 sh "docker images"
                
             }
         }
-        stage('Run') {
+        stage('Run Image') {
             steps {  
                 sh "docker ps"
                 //sh "docker run -it -d -p 8081:80 httpd_dk:${env.BUILD_NUMBER}"  
