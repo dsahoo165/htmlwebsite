@@ -5,18 +5,16 @@ pipeline {
         stage('Build Image') {
             steps {
                 echo "Build number is : ${env.BUILD_NUMBER}"
-                sh "docker images"
-                //script {
-                      // Build the Docker image
-                  //    docker.build("httpd_dk:${env.BUILD_NUMBER}")
-                //}
-                withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-                     sh "docker build -t dsahoo165/httpd_dk:${env.BUILD_NUMBER} ." 
-                     sh 'docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD'
-                     sh "docker push dsahoo165/httpd_dk:${env.BUILD_NUMBER}"
+                sh "docker images"                
+                //withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                //     sh "docker build -t dsahoo165/httpd_dk:${env.BUILD_NUMBER} ." 
+                //     sh 'docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD'
+                    
+                     //Commented to avoid un-necessary push
+                     //sh "docker push dsahoo165/httpd_dk:${env.BUILD_NUMBER}"
                      
-                }
-                //sh "docker build -t httpd_dk:${env.BUILD_NUMBER} ."
+                //}
+                sh "docker build -t dsahoo165/httpd_dk:${env.BUILD_NUMBER} ."
                 sh "docker images"
                
             }
