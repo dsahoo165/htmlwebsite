@@ -2,10 +2,18 @@ pipeline {
     agent any
 
     stages {
-        stage('Hello') {
+        stage('Build') {
             steps {
-                echo "Hello World ${env.BUILD_NUMBER}"
+                echo "Build number is : ${env.BUILD_NUMBER}"
+                sh "docker build -t httpd_dk:${env.BUILD_NUMBER} ."
+                
+                sh "docker run -it -d -p 8081:80 httpd_dk:${env.BUILD_NUMBER}"
                
+            }
+        }
+        stage('Run') {
+            steps {  
+                sh "docker run -it -d -p 8081:80 httpd_dk:${env.BUILD_NUMBER}"               
             }
         }
     }
