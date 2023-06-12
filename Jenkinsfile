@@ -14,7 +14,11 @@ pipeline {
         stage('Run') {
             steps {  
                 sh "docker ps"
-                sh "docker run -it -d -p 8081:80 httpd_dk:${env.BUILD_NUMBER}"  
+                //sh "docker run -it -d -p 8081:80 httpd_dk:${env.BUILD_NUMBER}"  
+                sh "docker compose down"
+                sh "export IMAGE=httpd_dk"
+                sh "export TAG=latest"                
+                sh "docker compose up -d"
                 sh "docker ps"
             }
         }
