@@ -3,8 +3,8 @@ services:
   ui-app:
     image: ${IMAGE}:${TAG}
     ports:
-      - ${PORT}:80
+      - ${PORT_TO_RUN}:80
     environment:
       - TAG=${TAG}
       - IMAGE=${IMAGE}
-      - PORT=${PORT_TO_RUN}
+      - PORT_TO_RUN=${PORT_TO_RUN}
