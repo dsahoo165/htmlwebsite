@@ -41,7 +41,7 @@ stages:
             $(tag)
     
   - stage: Deploy
-    dependsOn: BuildAndPush
+    dependsOn: Build
     jobs:
       - job: DeployToACI
         displayName: Deploy to Azure Container Instance
