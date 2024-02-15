@@ -16,8 +16,6 @@ variables:
   dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
   #tag: '$(Build.BuildId)'
   tag: 'latest'
-  subscriptionId:'0489db14-0245-4597-9548-435ca3dc6081'
-  #Agent VM image name
   vmImageName: 'ubuntu-latest'
 
 
@@ -50,7 +48,7 @@ stages:
         steps:
           - task: AzureResourceManagerTemplateDeployment@3
             inputs:
-              subscriptionId: '$(subscriptionId)'  # Replace with your Azure subscription ID
+              subscriptionId: '0489db14-0245-4597-9548-435ca3dc6081'  # Replace with your Azure subscription ID
               resourceGroupName: 'Mahipal-Automation'  # Replace with your resource group name
               location: 'South India'  # Replace with your desired ACI location
               deploymentScope: 'resourceGroup'
