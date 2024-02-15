@@ -14,7 +14,8 @@ variables:
   imageRepository: 'dsahooplainhtml'
   containerRegistry: 'icsstest1.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
-  tag: '$(Build.BuildId)'
+  #tag: '$(Build.BuildId)'
+  tag: 'latest'
 
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
