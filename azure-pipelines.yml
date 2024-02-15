@@ -50,7 +50,7 @@ stages:
         steps:
           - task: AzureResourceManagerTemplateDeployment@3
             inputs:
-              subscriptionId: '$(SubscriptionId)'  # Replace with your Azure subscription ID
+              subscriptionId: '$(subscriptionId)'  # Replace with your Azure subscription ID
               resourceGroupName: 'Mahipal-Automation'  # Replace with your resource group name
               location: 'South India'  # Replace with your desired ACI location
               deploymentScope: 'resourceGroup'
