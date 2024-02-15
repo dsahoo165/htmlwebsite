@@ -16,25 +16,45 @@ variables:
   dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
   #tag: '$(Build.BuildId)'
   tag: 'latest'
-
+  subscriptionId:'0489db14-0245-4597-9548-435ca3dc6081'
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
+  
+
+
 
 stages:
-- stage: Build
-  displayName: Build and push stage
-  jobs:
-  - job: Build
-    displayName: Build
-    pool:
-      vmImage: $(vmImageName)
-    steps:
-    - task: Docker@2
-      displayName: Build and push an image to container registry
-      inputs:
-        command: buildAndPush
-        repository: $(imageRepository)
-        dockerfile: $(dockerfilePath)
-        containerRegistry: $(dockerRegistryServiceConnection)
-        tags: |
-          $(tag)
+  - stage: Build
+    displayName: Build and push stage
+    jobs:
+    - job: Build
+      displayName: Build
+      pool:
+        vmImage: $(vmImageName)
+      steps:
+      - task: Docker@2
+        displayName: Build and push an image to container registry
+        inputs:
+          command: buildAndPush
+          repository: $(imageRepository)
+          dockerfile: $(dockerfilePath)
+          containerRegistry: $(dockerRegistryServiceConnection)
+          tags: |
+            $(tag)
+    
+  - stage: Deploy
+    dependsOn: BuildAndPush
+    jobs:
+      - job: DeployToACI
+        displayName: Deploy to Azure Container Instance
+        steps:
+          - task: AzureResourceManagerTemplateDeployment@3
+            inputs:
+              subscriptionId: '$(SubscriptionId)'  # Replace with your Azure subscription ID
+              resourceGroupName: 'Mahipal-Automation'  # Replace with your resource group name
+              location: 'South India'  # Replace with your desired ACI location
+              deploymentScope: 'resourceGroup'
+              overrideParameters: '{ "containerImage": "$(imageRepository)" }'
+              templateLocation: 'Linked artifact'
+              csmFile: 'azuredeploy.parameters.json'  # Optional parameters file name
+              deploymentMode: 'Incremental'  # Change if needed
