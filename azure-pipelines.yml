@@ -17,9 +17,9 @@ variables:
   #tag: '$(Build.BuildId)'
   tag: 'latest'
   subscriptionId:'0489db14-0245-4597-9548-435ca3dc6081'
-  # Agent VM image name
+  #Agent VM image name
   vmImageName: 'ubuntu-latest'
-  
+
 
 
 
