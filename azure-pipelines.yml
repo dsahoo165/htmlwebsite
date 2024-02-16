@@ -38,18 +38,18 @@ stages:
         tags: |
           $(tag)
 
-- stage: Deploy
-  dependsOn: Build
-  jobs:
-    - job: DeployToACI
-      displayName: Deploy to Azure Container Instance
-      steps:
-        - task: AzureResourceManagerTemplateDeployment@3
-          inputs:
-            connectedServiceName: 'myServiceConnection'
-            subscriptionId: '229024e2-8aa5-4a5f-8198-be8443b9808a'
-            resourceGroupName: 'DevOps'
-            location: 'East US'
-            deploymentScope: 'resourceGroup'
-            overrideParameters: '{ "containerImage": "$(imageRepository)" }'
-            templateLocation: 'Linked artifact'
+# - stage: Deploy
+#   dependsOn: Build
+#   jobs:
+#     - job: DeployToACI
+#       displayName: Deploy to Azure Container Instance
+#       steps:
+#         - task: AzureResourceManagerTemplateDeployment@3
+#           inputs:
+#             connectedServiceName: 'myServiceConnection'
+#             subscriptionId: '229024e2-8aa5-4a5f-8198-be8443b9808a'
+#             resourceGroupName: 'DevOps'
+#             location: 'East US'
+#             deploymentScope: 'resourceGroup'
+#             overrideParameters: '{ "containerImage": "$(imageRepository)" }'
+#             templateLocation: 'Linked artifact'
